@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>qrForm</class>
+ <widget class="QWidget" name="qrForm">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>783</width>
+    <height>700</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>783</width>
+    <height>700</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>783</width>
+    <height>700</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QWidget" name="qrWidget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>771</width>
+     <height>691</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>771</width>
+     <height>691</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>771</width>
+     <height>691</height>
+    </size>
+   </property>
+   <widget class="QWidget" name="gridLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>30</y>
+      <width>621</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>테이블 번호</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="3">
+      <widget class="QPushButton" name="saveQR">
+       <property name="text">
+        <string>저장</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QPushButton" name="clearQR">
+       <property name="text">
+        <string>비우기</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QPushButton" name="createQR">
+       <property name="text">
+        <string>생성</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="qrData"/>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QLabel" name="QRimage">
+    <property name="geometry">
+     <rect>
+      <x>206</x>
+      <y>216</y>
+      <width>71</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>....</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="BGImage">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>110</y>
+      <width>421</width>
+      <height>291</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>BGImage.png</pixmap>
+    </property>
+   </widget>
+   <zorder>BGImage</zorder>
+   <zorder>QRimage</zorder>
+   <zorder>gridLayoutWidget</zorder>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
