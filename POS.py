@@ -13,8 +13,8 @@ form = resource_path('POS.ui')
 form_class = uic.loadUiType(form)[0]
 
 class MainWindow(QMainWindow, form_class):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, parent):
+        super(MainWindow, self).__init__(parent)
         self.setupUi(self)
         self.accContain.hide()
         self.tableContain.hide()
