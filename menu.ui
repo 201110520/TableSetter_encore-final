@@ -40,7 +40,7 @@
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
-   <widget class="QTableWidget" name="tableWidget">
+   <widget class="QTableWidget" name="menuTableWidget">
     <property name="geometry">
      <rect>
       <x>400</x>
@@ -49,101 +49,6 @@
       <height>481</height>
      </rect>
     </property>
-    <row>
-     <property name="text">
-      <string>1</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>2</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>3</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>4</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>5</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>6</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>7</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>8</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>10</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>11</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>12</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>13</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>14</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>15</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>16</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>17</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>18</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>19</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>20</string>
-     </property>
-    </row>
     <column>
      <property name="text">
       <string>메뉴명</string>
@@ -173,25 +78,12 @@
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>메뉴명</string>
+        <string>메뉴명 :    </string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPlainTextEdit" name="plainTextEdit">
-       <property name="minimumSize">
-        <size>
-         <width>267</width>
-         <height>29</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>267</width>
-         <height>29</height>
-        </size>
-       </property>
-      </widget>
+      <widget class="QLineEdit" name="menuName"/>
      </item>
     </layout>
    </widget>
@@ -208,28 +100,12 @@
      <item>
       <widget class="QLabel" name="label_2">
        <property name="text">
-        <string>가격</string>
+        <string>가격 :       </string>
        </property>
       </widget>
      </item>
      <item>
-      <spacer name="horizontalSpacer_2">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="lineEdit"/>
-     </item>
-     <item>
-      <widget class="QComboBox" name="comboBox"/>
+      <widget class="QLineEdit" name="menuprice"/>
      </item>
     </layout>
    </widget>
@@ -237,9 +113,9 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>100</y>
+      <y>130</y>
       <width>331</width>
-      <height>271</height>
+      <height>241</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -251,7 +127,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QTextEdit" name="textEdit"/>
+      <widget class="QTextEdit" name="fooddescription"/>
      </item>
     </layout>
    </widget>
@@ -266,9 +142,12 @@
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_4">
      <item>
-      <widget class="QLabel" name="label_4">
+      <widget class="QLabel" name="imagefilename">
        <property name="text">
         <string> 파일명  </string>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -286,7 +165,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="seletImage">
+      <widget class="QPushButton" name="selectImage">
        <property name="text">
         <string>불러오기</string>
        </property>
@@ -337,24 +216,17 @@
    <widget class="QWidget" name="horizontalLayoutWidget_5">
     <property name="geometry">
      <rect>
-      <x>399</x>
+      <x>629</x>
       <y>550</y>
-      <width>361</width>
+      <width>131</width>
       <height>61</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_6">
      <item>
-      <widget class="QPushButton" name="pushButton_5">
+      <widget class="QPushButton" name="foodClose">
        <property name="text">
-        <string>판매 중지</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_4">
-       <property name="text">
-        <string>판매 개시</string>
+        <string>판매 시작/중지</string>
        </property>
       </widget>
      </item>
@@ -371,11 +243,33 @@
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
-      <widget class="QLabel" name="label_5">
+      <widget class="QLabel" name="foodimage">
        <property name="text">
         <string>미리보기</string>
        </property>
       </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget_6">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>94</y>
+      <width>331</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>카테고리 : </string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="catecomboBox"/>
      </item>
     </layout>
    </widget>

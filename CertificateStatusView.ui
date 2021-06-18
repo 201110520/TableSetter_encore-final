@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>315</width>
-    <height>131</height>
+    <height>125</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,20 +23,36 @@
     </rect>
    </property>
    <property name="text">
-    <string>TextLabel</string>
+    <string>실행버튼을 눌러주세요.</string>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
    </property>
   </widget>
-  <widget class="QPushButton" name="CertificateSuccessEixt">
+  <widget class="QPushButton" name="CertificateSuccessExit">
    <property name="geometry">
     <rect>
-     <x>220</x>
-     <y>100</y>
+     <x>228</x>
+     <y>99</y>
      <width>75</width>
      <height>23</height>
     </rect>
    </property>
    <property name="text">
     <string>닫기</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="CertificateSuccess">
+   <property name="geometry">
+    <rect>
+     <x>147</x>
+     <y>99</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>생성</string>
    </property>
   </widget>
  </widget>
