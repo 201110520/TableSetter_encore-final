@@ -1,11 +1,18 @@
 import sys
+import os
 from PyQt5 import uic
 from PyQt5.QtWidgets import QDialog
 from POSsql import AddUserCtrl
 
 adduserctrl = AddUserCtrl()
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+    return os.path.join(base_path, relative_path)
 
-form_class = uic.loadUiType("adduser.ui")[0]
+form = resource_path('adduser.ui')
+form_class = uic.loadUiType(form)[0]
+
 
 class adduer_M(QDialog, form_class):
     def __init__(self, parent = None):

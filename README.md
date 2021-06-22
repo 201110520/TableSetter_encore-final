@@ -9,6 +9,8 @@ pip3 install qrcode
 pip3 install Pillow
 
 pip3 install pycryptodome
+
+pip3 install boto3
 ```
 
 ### 필요 변수 파일

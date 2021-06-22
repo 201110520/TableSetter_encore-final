@@ -236,3 +236,6 @@ pixmapTest.py
 POSvariable.py
 test*.py
 test*.ui
+test/
+*.exe
+*.zip

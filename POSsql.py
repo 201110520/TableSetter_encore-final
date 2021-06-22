@@ -55,7 +55,7 @@ class AddUserCtrl:
             return errText
 
 class Tablectrl:
-    def TableMenuLoad():
+    def TableMenuLoad(self):
         try:
             rows=0
             print(rows)
@@ -67,7 +67,7 @@ class Tablectrl:
         except:
             print('error: ')
     
-    def billLoad(table_num):
+    def billLoad(self,table_num):
         try:
             rows=0
             sql='SELECT F.NAME, F.price , O.amount, O.pay_code FROM Food F, OrderDetail O, OrderHistory H WHERE F.num=O.Food_num and O.Order_num = H.num AND H.pay_state=0 and H.Store_num = "'+ POSvariable.STORE_ID +'" AND H.table_num= '+str(table_num)+''
@@ -80,21 +80,21 @@ class Tablectrl:
                 name, price, amount, paycode = rows[i]
                 if paycode == 1:
                     card += int(price)*amount
-                elif paycode ==2:
+                elif paycode !=1:
                     cash += int(price)*amount
             return rows, card, cash
         except:
             print("error: billLoad")
     
-    def orderTotal(table_num):
+    def orderTotal(self,table_num):
         try:
-            rows = 0
+            rows = []
             total = 0
             sql = 'SELECT F.price , O.amount FROM Food F, OrderDetail O, OrderHistory H WHERE F.num=O.Food_num and O.Order_num = H.num AND H.pay_state=0 and H.Store_num = "'+ POSvariable.STORE_ID +'" AND H.table_num= '+str(table_num)+''
             curs.execute(sql)
             rows = curs.fetchall()
             conn.commit()
-            #print(rows)
+            #print('orderTotal:',rows)
             #print(len(rows))
             for i in range(len(rows)):
                 price, amount = rows[i]
@@ -103,8 +103,23 @@ class Tablectrl:
             return total
         except:
             print('error: orderTotal')
-    
-    def payment(table_num):
+
+    def addlist1(self,table_num,count):
+        try:
+            list1 = count.items()
+            list2 = list(list1)
+            for i in range(len(list1)):
+                sql= 'INSERT INTO OrderDetail(Order_num, Food_num, amount, pay_code) SELECT  (SELECT H.num FROM OrderHistory H WHERE H.pay_state = \'0\' and H.Store_num ="'+ POSvariable.STORE_ID +'" AND H.table_num = '+str(table_num)+'),(SELECT Food.num FROM Food WHERE Food.name = "'+ list2[i][0] +'"),"'+ str(list2[i][1]) +'",\'3\' '
+                curs.execute(sql)
+                conn.commit()
+        except:
+            print('error: addlist')
+            sql2 = 'INSERT INTO OrderHistory(Store_num, order_date, table_num) VALUES ("'+ POSvariable.STORE_ID +'",NOW(),'+str(table_num)+')' 
+            curs.execute(sql2)
+            conn.commit()
+            self.addlist1(table_num,count)
+
+    def payment(self,table_num):
         try:
             sql = 'UPDATE OrderHistory H SET H.pay_state=1 WHERE H.Store_num = "'+ POSvariable.STORE_ID +'" AND H.table_num= '+str(table_num)+''
             curs.execute(sql)
@@ -117,8 +132,8 @@ class AccCtrl:
     def get_data_day(self, date):
         try:
             key = "'" + date + "%'"
-            curs.execute("""SELECT Ptime, Pmenu FROM t_payinfo
-            WHERE Ptime LIKE %s""" % key)
+            sql = 'SELECT H.order_date, F.NAME, O.pay_code FROM OrderHistory H JOIN OrderDetail O ON H.num=O.Order_num JOIN Food F ON O.Food_num=F.num WHERE H.Store_num = "'+ POSvariable.STORE_ID +'" AND DATE(H.order_date)= '+key+''
+            curs.execute(sql)
             fetch_payment = curs.fetchall()
             return list(fetch_payment)
         except:
@@ -153,24 +168,24 @@ class AccCtrl:
     def get_method_day(self, date):
         try:
             key = "'" + date + "%'"
-            curs.execute("""SELECT Pmethod FROM t_payment
-            WHERE Ptime LIKE %s""" % key)
+            sql = 'SELECT F.price, O.amount , O.pay_code FROM OrderHistory H JOIN OrderDetail O ON H.num=O.Order_num JOIN Food F ON O.Food_num=F.num WHERE H.Store_num = "'+ POSvariable.STORE_ID +'" AND DATE(H.order_date)= '+key+''
+            curs.execute(sql)
             fetch_method = curs.fetchall()
 
-            card = 0
-            cash = 0
-            point = 0
+            on = 0
+            off = 0
             total = 0
 
             for i in range(0, len(fetch_method)):
-                m_string = str(fetch_method[i])
-                sp_buf = m_string[2:-3].split(',')
-                card += int(sp_buf[0])
-                cash += int(sp_buf[1])
-                point += int(sp_buf[2])
+                #m_string = str(fetch_method[i])
+                #sp_buf = m_string[2:-3].split(',')
+                if fetch_method[i][2] == 1:
+                    on += int(fetch_method[i][0]) * int(fetch_method[i][1])
+                else:
+                    off += int(fetch_method[i][0]) * int(fetch_method[i][1])
 
-            total = card + cash + point
-            method_output = [card, cash, point, total]  # card, cash, point, total
+            total = on + off
+            method_output = [on, off, total]  # card, cash, point, total
             return method_output
 
         except:
@@ -181,24 +196,24 @@ class AccCtrl:
     def get_method_month(self, date):
         try:
             key = "'" + date + "%'"
-            curs.execute("""SELECT Pmethod FROM t_payment
-            WHERE Ptime LIKE %s""" % key)
+            sql = 'SELECT F.price, O.amount , O.pay_code FROM OrderHistory H JOIN OrderDetail O ON H.num=O.Order_num JOIN Food F ON O.Food_num=F.num WHERE H.Store_num = "'+ POSvariable.STORE_ID +'" AND H.order_date LIKE '+key+''
+            curs.execute(sql)
             fetch_method = curs.fetchall()
 
-            card = 0
-            cash = 0
-            point = 0
+            on = 0
+            off = 0
             total = 0
 
             for i in range(0, len(fetch_method)):
-                m_string = str(fetch_method[i])
-                sp_buf = m_string[2:-3].split(',')
-                card += int(sp_buf[0])
-                cash += int(sp_buf[1])
-                point += int(sp_buf[2])
+                #m_string = str(fetch_method[i])
+                #sp_buf = m_string[2:-3].split(',')
+                if fetch_method[i][2] == 1:
+                    on += int(fetch_method[i][0]) * int(fetch_method[i][1])
+                else:
+                    off += int(fetch_method[i][0]) * int(fetch_method[i][1])
 
-            total = card + cash + point
-            method_output = [card, cash, point, total]  # card, cash, point, total
+            total = on + off
+            method_output = [on, off, total]  # card, cash, point, total
             return method_output
 
         except:
@@ -218,8 +233,8 @@ class AccCtrl:
     def get_amount(self, date):
         try:
             key = "'" + date + "%'"
-            curs.execute("""SELECT COUNT(*) FROM t_payinfo
-            WHERE Ptime LIKE %s""" % key)
+            sql = 'SELECT COUNT(*) FROM OrderHistory H JOIN OrderDetail O ON H.num=O.Order_num JOIN Food F ON O.Food_num=F.num WHERE H.Store_num = "'+ POSvariable.STORE_ID +'" AND DATE(H.order_date)= '+key+''
+            curs.execute(sql)
             fetch_amount = curs.fetchone()
             return fetch_amount[0]
         except:
@@ -350,3 +365,36 @@ class Menuctrl:
             sql2='UPDATE Food F SET F.category_num=(SELECT C.num FROM Category C WHERE C.NAME=\''+rows[0]+'\'AND C.Store_num= "'+ POSvariable.STORE_ID +'"),F.NAME=\''+rows[1]+'\' ,F.img_src= \''+url+'\',F.price=\''+rows[2]+'\' ,F.description=\''+rows[3]+'\'  WHERE F.num=\''+str(Fnum[0])+'\''
             curs.execute(sql2)
             conn.commit
+
+class Payctrl:
+    def total(self,tablenum):
+        #try:
+            sql = 'SELECT F.price, O.amount, O.pay_code, H.num FROM Food F JOIN OrderDetail O ON F.num=O.Food_num join OrderHistory H ON O.Order_num=H.num WHERE H.pay_state=0 AND H.Store_num = "'+ POSvariable.STORE_ID +'" AND H.table_num = "'+ str(tablenum) +'"'
+            curs.execute(sql)
+            rows=curs.fetchall()
+            total=0
+            for i in range(0,len(rows)):
+                if int(rows[i][2])!=1:
+                    total += (int(rows[i][1])*int(rows[i][0]))
+                else:
+                    total=total
+            return total, str(rows[0][3])
+
+        #except:
+        #    print('error:Payctrl total')
+
+    def paidcard(self, ordernum, cardid, payamount):
+        #try:
+            sql = 'INSERT INTO Payment(Order_num,card_id, pay_code, paid, pay_date) VALUES ("'+ordernum +'","'+cardid +'", \'2\' , "'+  payamount +'",NOW())'
+            curs.execute(sql)
+            conn.commit()
+        #except:
+        #    print('error:Payctrl paidcard')
+    def paidcash(self,ordernum, payamount):
+        #try:
+            sql = 'INSERT INTO Payment (Order_num, pay_code, paid, pay_date ) VALUES ("'+ordernum +'",\'3\', "'+  payamount +'",NOW())'
+            curs.execute(sql)
+            conn.commit()
+        #except:
+        #    print('error:Payctrl paidcash')
+    

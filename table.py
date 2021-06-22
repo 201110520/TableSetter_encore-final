@@ -9,12 +9,15 @@
 
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtCore import QThread
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QApplication
 from POSvariable import TABLE_NUM
 from table_info import tableInfoWidget
 from POSsql import Tablectrl
 import threading
 
+
+tablectrl = Tablectrl()
  
 class tableWidget(QWidget):
     def __init__(self, parent=None):
@@ -39,8 +42,9 @@ class tableWidget(QWidget):
         self.gridLayout.setHorizontalSpacing(3)
         self.gridLayout.setVerticalSpacing(0)
         self.gridLayout.setObjectName("gridLayout")
-        self.retranslateUi()
-
+        self.retranslateUi(TABLE_NUM)
+        #self.totalinfo(TABLE_NUM)
+        
         #i=1
         #for x in range(0,5):
         #    for y in range(0,5):
@@ -56,18 +60,20 @@ class tableWidget(QWidget):
         
         #QtCore.QMetaObject.connectSlotsByName()
 
-    def retranslateUi(self):
+    def retranslateUi(self,count):
+        #self.tableInfoWidget.clear()
+        #self.show()
         i=1
         for x in range(0,5):
-            for y in range(0,5):
+            for z in range(0,5):
                 self.btnlist = QtWidgets.QPushButton(self)
                 self.btnlist.setMinimumSize(QtCore.QSize(0, 110))
                 self.btnlist.setObjectName('pushButton_{}'.format(i))
-                self.gridLayout.addWidget(self.btnlist, x, y, 1, 1)
+                self.gridLayout.addWidget(self.btnlist, x, z, 1, 1)
                 i+=1
-
-        for y in range(1,TABLE_NUM+1):
-            total = Tablectrl.orderTotal(y)
+    #def totalinfo(self,count):
+        for y in range(1,count+1):
+            total = tablectrl.orderTotal(y)
             #print(total)
             child = self.findChild(QPushButton, 'pushButton_{}'.format(y))
             #print(child)
@@ -75,7 +81,14 @@ class tableWidget(QWidget):
                 table_counger = '{0}번 테이블 \n\n\n {1}원'.format(y,total)
             else:
                 table_counger = '0{0} 번 테이블 \n\n\n {1}원'.format(y,total)
+            #child.clear()
             child.setText(table_counger)
+            print(child.text())
+            child.update()
+            child.repaint()
+            #child.refresh()
+            QApplication.processEvents()
+            
         #threading.Timer(2.5, self.retranslateUi()).start()   
             
     
@@ -88,14 +101,18 @@ class tableWidget(QWidget):
         self.tableInfo.show()
         print('정보')
     
+    #def show(self):
+    #   self.close()
+        
+    
         
         
         
         
 
 
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    ui = tableWidget()
-    ui.show()
-    exit(app.exec_())
+#if __name__ == "__main__":
+#    app = QApplication(sys.argv)
+#    ui = tableWidget()
+#    ui.show()
+#    sys.exit(app.exec_())

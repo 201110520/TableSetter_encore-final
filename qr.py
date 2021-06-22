@@ -9,13 +9,22 @@ from PyQt5.QtWidgets import QApplication, QWidget
 from PyQt5.QtGui import QFont, QPixmap , QImage
 from POSsql import LoginCtrl
 
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+    return os.path.join(base_path, relative_path)
+
+form = resource_path('qr.ui')
+form_class = uic.loadUiType(form)[0]
+
+
 loginCtrl = LoginCtrl()
 login_re = POSvariable
 
-class qrWidget(QWidget):
+class qrWidget(QWidget, form_class):
     def __init__(self, parent=None, ticker="qr"):
         super().__init__(parent)
-        uic.loadUi("qr.ui", self)
+        self.setupUi(self)
         self.createQR.clicked.connect(self.create_QR)
         self.saveQR.clicked.connect(self.save_QR)
         self.clearQR.clicked.connect(self.clear_QR)
@@ -58,9 +67,9 @@ class qrWidget(QWidget):
         
 
 
-if __name__ == "__main__":
-    
-    app = QApplication(sys.argv)
-    ob = qrWidget()
-    ob.show()
-    exit(app.exec_())
+#if __name__ == "__main__":
+#    
+#    app = QApplication(sys.argv)
+#    ob = qrWidget()
+#    ob.show()
+#    sys.exit(app.exec_())

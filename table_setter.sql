@@ -80,18 +80,23 @@ CREATE TABLE OrderDetail(
 	Order_num INT NOT NULL,
 	Food_num INT NOT NULL,
 	amount INT NOT NULL,
-	pay_code INT NOT NULL,
+	pay_code INT NOT NULL, #1=카드, 2= 현장결제, 3=현장주문
 	FOREIGN KEY(Food_num) REFERENCES Food(num),
 	FOREIGN KEY(Order_num) REFERENCES OrderHistory(num)
 ) DEFAULT CHARSET=UTF8;
 
 CREATE TABLE Payment(
-	num VARCHAR(200) PRIMARY KEY,
+	num INT  PRIMARY KEY AUTO_INCREMENT,
 	Order_num INT NOT NULL,
+	card_id INT(20),
 	pay_code INT NOT NULL,
+	paid VARCHAR(50) NOT NULL,
 	pay_date TIMESTAMP,
 	FOREIGN KEY(Order_num) REFERENCES OrderHistory(num)
 ) DEFAULT CHARSET=UTF8;
+
+ALTER TABLE Payment ADD COLUMN card_id INT(20) ;
+ALTER TABLE Payment ADD COLUMN  paid VARCHAR(50) NOT NULL;
 
 CREATE TABLE SystemAdmin(
 	id VARCHAR(100) PRIMARY KEY,

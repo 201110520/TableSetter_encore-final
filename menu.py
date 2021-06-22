@@ -1,5 +1,5 @@
 import sys
-
+import os
 from PyQt5.QtGui import QPixmap
 import POSvariable
 import urllib.request
@@ -8,11 +8,19 @@ from imageS3Insert import imageS3Upload
 from PyQt5 import uic, QtWidgets, QtCore
 from PyQt5.QtWidgets import QFileDialog, QTableWidgetItem, QWidget, QApplication, QTableWidget, QCheckBox
 
-form_class2 = uic.loadUiType("menu.ui")[0]
+
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+    return os.path.join(base_path, relative_path)
+
+form = resource_path('menu.ui')
+form_class = uic.loadUiType(form)[0]
+
 menuctrl = Menuctrl()
 s3Upload = imageS3Upload()
 
-class menuWidget(QWidget,form_class2):
+class menuWidget(QWidget,form_class):
     row=0
     col=0
     def __init__(self, parent=None):
@@ -175,4 +183,4 @@ class menuWidget(QWidget,form_class2):
 #    app = QApplication(sys.argv)
 #    ob = menuWidget()
 #    ob.show()
-#    exit(app.exec_())
+#    sys.exit(app.exec_())
