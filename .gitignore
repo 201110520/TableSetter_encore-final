@@ -233,3 +233,9 @@ $RECYCLE.BIN/
 .vscode/
 *.png
 pixmapTest.py
+POSvariable.py
+test*.py
+test*.ui
+test/
+*.exe
+*.zip

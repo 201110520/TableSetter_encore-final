@@ -26,7 +26,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="tableInfoWidget" name="tableContain" native="true">
+   <widget class="tableWidget" name="tableContain" native="true">
     <property name="geometry">
      <rect>
       <x>170</x>
@@ -139,12 +139,6 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>tableInfoWidget</class>
-   <extends>QWidget</extends>
-   <header>table_info</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>accWidget</class>
    <extends>QWidget</extends>
    <header>acc</header>
@@ -160,6 +154,12 @@
    <class>qrWidget</class>
    <extends>QWidget</extends>
    <header>qr</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>tableWidget</class>
+   <extends>QWidget</extends>
+   <header>table</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

@@ -37,36 +37,10 @@
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QPlainTextEdit" name="login_ID">
-       <property name="minimumSize">
-        <size>
-         <width>256</width>
-         <height>27</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>256</width>
-         <height>27</height>
-        </size>
-       </property>
-      </widget>
+      <widget class="QLineEdit" name="login_ID"/>
      </item>
      <item>
-      <widget class="QPlainTextEdit" name="login_PW">
-       <property name="minimumSize">
-        <size>
-         <width>256</width>
-         <height>27</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>256</width>
-         <height>27</height>
-        </size>
-       </property>
-      </widget>
+      <widget class="QLineEdit" name="login_PW"/>
      </item>
      <item>
       <widget class="QPushButton" name="login_Button">

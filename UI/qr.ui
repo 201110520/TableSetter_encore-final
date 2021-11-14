@@ -92,35 +92,35 @@
    <widget class="QLabel" name="QRimage">
     <property name="geometry">
      <rect>
-      <x>206</x>
-      <y>216</y>
-      <width>71</width>
-      <height>71</height>
+      <x>210</x>
+      <y>210</y>
+      <width>151</width>
+      <height>131</height>
      </rect>
     </property>
     <property name="text">
      <string>....</string>
     </property>
    </widget>
-   <widget class="QLabel" name="BGImage">
+   <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>180</x>
-      <y>110</y>
-      <width>421</width>
-      <height>291</height>
+      <x>170</x>
+      <y>120</y>
+      <width>420</width>
+      <height>298</height>
      </rect>
     </property>
     <property name="text">
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>BGImage.png</pixmap>
+     <pixmap>template.png</pixmap>
     </property>
    </widget>
-   <zorder>BGImage</zorder>
-   <zorder>QRimage</zorder>
    <zorder>gridLayoutWidget</zorder>
+   <zorder>label_2</zorder>
+   <zorder>QRimage</zorder>
   </widget>
  </widget>
  <resources/>
