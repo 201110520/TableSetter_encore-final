@@ -1,4 +1,4 @@
-# TableSetter_encore-final 
+# TableSetter_encore-final Frontend POS
 
 ## 개요
 ```
